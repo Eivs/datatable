@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
+    "deep-diff": "^1.0.2",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-hot-loader": "^4.6.2",
+    "recompose": "^0.30.0",
     "why-did-you-update": "^1.0.6"
   },
   "devDependencies": {

@@ -1,44 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import TableHead from './TableHead';
-import TableRow from './TableRow';
+import { compose, pure } from 'recompose';
+import BaseTable from './BaseTable';
+import withRowSelection from './withRowSelection';
 
-class Table extends PureComponent {
-  static propTypes = {
-    columns: PropTypes.array,
-    dataSource: PropTypes.array,
-    // selectKeys: PropTypes.array,
-  };
+const withTableLogic = compose(
+  withRowSelection,
+  pure,
+);
 
-  static defaultProps = {
-    columns: [],
-    dataSource: [],
-    // selectKeys: [],
-  };
-
-  // state = { selectKeys: [] };
-
-  // static getDerivedStateFromProps(nextProps) {
-  //   return { selectKeys: nextProps.selectKeys };
-  // }
-
-  render() {
-    const { columns, dataSource } = this.props;
-    return (
-      <table>
-        <TableHead columns={columns} />
-        <tbody>
-          {dataSource.map(record => (
-            <TableRow
-              key={`tr-${JSON.stringify(record)}`}
-              record={record}
-              columns={columns}
-            />
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-}
-
-export default Table;
+export default withTableLogic(BaseTable);

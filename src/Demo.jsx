@@ -25,31 +25,15 @@ class App extends Component {
     data: [],
     selectedKeys: [],
     pagination: {
-      pageSize: 1000,
+      pageSize: 100,
     },
     loading: false,
-    results: 1000,
+    results: 100,
   };
 
   componentDidMount() {
-    // this.getData();
+    this.getData();
   }
-
-  handleTableChange = (pagination, filters, sorter) => {
-    const { pagination: statePagination } = this.state;
-    const pager = { ...statePagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager,
-    });
-    this.getData({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters,
-    });
-  };
 
   getData = (params = {}) => {
     const { results } = this.state;
@@ -80,27 +64,53 @@ class App extends Component {
       });
   };
 
-  render() {
-    const {
-      data, pagination, selectedKeys, loading,
-    } = this.state;
-    const rowSelection = {
+  get rowSelection() {
+    const { selectedKeys } = this.state;
+    return {
       selectedRowKeys: selectedKeys,
       type: 'checkbox',
-      onChange: (selectedRowKeys) => {
-        this.setState({ selectedKeys: selectedRowKeys });
-      },
+      onChange: this.handleSelect,
     };
+  }
+
+  handleTableChange = (pagination, filters, sorter) => {
+    const { pagination: statePagination } = this.state;
+    const pager = { ...statePagination };
+    pager.current = pagination.current;
+    this.setState({
+      pagination: pager,
+    });
+    this.getData({
+      results: pagination.pageSize,
+      page: pagination.current,
+      sortField: sorter.field,
+      sortOrder: sorter.order,
+      ...filters,
+    });
+  };
+
+  handleSelect = (selectedRowKeys) => {
+    // console.log(selectedRowKeys);
+    this.setState({ selectedKeys: selectedRowKeys });
+  };
+
+  getRowKey = record => record.login.uuid;
+
+  render() {
+    const { data, pagination, loading } = this.state;
 
     return (
       <div>
-        <button type="button" onClick={() => this.getData()}>
+        <button
+          type="button"
+          onClick={() => this.getData()}
+        >
           Load & Reload
         </button>
         <Table
           columns={columns}
-          rowKey={record => record.login.uuid}
-          rowSelection={rowSelection}
+          rowKey={this.getRowKey}
+          rowSelection={this.rowSelection}
           dataSource={data}
           pagination={pagination}
           loading={loading}
