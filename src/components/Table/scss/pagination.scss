@@ -1,0 +1,26 @@
+&-table-pagination-wrapper {
+  padding: 10px;
+  background: $pagination-background;
+}
+
+&-table-length-menu {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+&-table-page-info {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+&-table-pagination {
+  float: right;
+  .pagination {
+    margin: 0;
+  }
+  .disabled a {
+    border-color: $pagination-background;
+    color: #999;
+    background: $pagination-background;
+  }
+}

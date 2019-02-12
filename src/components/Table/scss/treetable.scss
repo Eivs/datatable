@@ -1,0 +1,14 @@
+//treeTable
+&-table-cell-expanded &-table-cell-expand-icon:before {
+  content: ' - ';
+}
+
+&-table-cell-expand-icon {
+  width: 10px;
+  outline: none;
+  cursor: pointer;
+  &:before {
+    font-family: "-webkit-pictograph";
+    content: ' + ';
+  }
+}

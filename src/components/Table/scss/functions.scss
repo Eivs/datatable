@@ -1,0 +1,25 @@
+@mixin box-shadow($x: 0, $y: 2px, $blur: 3px, $color: rgba(0, 0, 0, 0.28)) {
+  -moz-box-shadow: $arguments;
+  -webkit-box-shadow: $arguments;
+  box-shadow: $arguments;
+}
+
+@mixin ellipsis-basic() {
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin ellipsis($substract: 0) {
+  width: 100% - $substract;
+  @include ellipsis-basic();
+}
+
+@mixin user-select() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

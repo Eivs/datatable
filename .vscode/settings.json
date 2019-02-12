@@ -9,5 +9,11 @@
   "editor.tabSize": 2,
   "beautify.tabSize": 2,
   "typescript.disableAutomaticTypeAcquisition": true,
-  "eslint.validate": ["javascript", "javascriptreact"]
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact"
+  ],
+  "jumpToAliasFile.alias": {
+    "src": "/Users/Elvis/WebDev/datatable/src"
+  }
 }

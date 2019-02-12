@@ -1,0 +1,10 @@
+@import './themes.scss';
+.rs {
+  @import './variables.scss';
+  @import './functions.scss';
+  @import './loader.scss';
+  @import './table.scss';
+  @import './pagination.scss';
+  @import './treetable.scss';
+  @import './scrollbar.scss';
+}
