@@ -5,7 +5,7 @@ const Column = () => null;
 Column.propTypes = {
   align: PropTypes.oneOf[('left', 'center', 'right')],
   width: PropTypes.number,
-  fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf[('left', 'right')]]),
+  fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['left', 'right'])]),
   resizable: PropTypes.bool,
   sortable: PropTypes.bool,
   flexGrow: PropTypes.number,

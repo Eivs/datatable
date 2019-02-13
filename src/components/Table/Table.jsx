@@ -868,7 +868,7 @@ class Table extends React.Component {
   }
 
   calculateTableContextHeight() {
-    const { table } = this.table;
+    const { table } = this;
     const rows = table.querySelectorAll(`.${this.addPrefix('row')}`) || [];
     const { height, autoHeight, rowHeight } = this.props;
     const headerHeight = this.getTableHeaderHeight();

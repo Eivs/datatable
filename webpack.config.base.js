@@ -165,6 +165,7 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+      __RSUITE_CLASSNAME_PREFIX__: JSON.stringify(''),
     }),
     new WebpackBar({
       name: NODE_ENV,

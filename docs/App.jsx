@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 import React from 'react';
 import {
   Popover, Whisper, Toggle, Grid, Button, ButtonGroup, Checkbox,
@@ -17,6 +16,23 @@ import fakeTreeData from './data/treeData';
 import fakeDataForColSpan from './data/usersForColSpan';
 import fakeLargeData from './data/fakeLargeData.json';
 import { createFakeRowObjectData } from './data/fakeObjectDataListStore';
+
+import LargeLists from './md/LargeLists.md';
+import FixedColumnTable from './md/FixedColumnTable.md';
+import AutoHeightTable from './md/AutoHeightTable.md';
+import FluidColumnTable from './md/FluidColumnTable.md';
+import ResizableColumnTable from './md/ResizableColumnTable.md';
+import WordWrapTable from './md/WordWrapTable.md';
+import CustomColumnTable from './md/CustomColumnTable.md';
+import SortTable from './md/SortTable.md';
+import TreeTable from './md/TreeTable.md';
+import Expanded from './md/Expanded.md';
+import EditTable from './md/EditTable.md';
+import LoadingTable from './md/LoadingTable.md';
+import ColspanTable from './md/ColspanTable.md';
+import HideTableHeader from './md/HideTableHeader.md';
+import EmptyDataTable from './md/EmptyDataTable.md';
+import DynamicTable from './md/DynamicTable.md';
 
 const App = () => (
   <Grid>
@@ -51,67 +67,67 @@ const App = () => (
       list={[
         {
           title: 'Virtualized',
-          content: require('./md/LargeLists.md'),
+          content: LargeLists,
         },
         {
           title: 'Fixed Column',
-          content: require('./md/FixedColumnTable.md'),
+          content: FixedColumnTable,
         },
         {
           title: 'Automatic height',
-          content: require('./md/AutoHeightTable.md'),
+          content: AutoHeightTable,
         },
         {
           title: 'Fluid',
-          content: require('./md/FluidColumnTable.md'),
+          content: FluidColumnTable,
         },
         {
           title: 'Resizable',
-          content: require('./md/ResizableColumnTable.md'),
+          content: ResizableColumnTable,
         },
         {
           title: 'Word wrap',
-          content: require('./md/WordWrapTable.md'),
+          content: WordWrapTable,
         },
         {
           title: 'Custom Cell',
-          content: require('./md/CustomColumnTable.md'),
+          content: CustomColumnTable,
         },
         {
           title: 'Sort',
-          content: require('./md/SortTable.md'),
+          content: SortTable,
         },
         {
           title: 'Tree',
-          content: require('./md/TreeTable.md'),
+          content: TreeTable,
         },
         {
           title: 'Expandable',
-          content: require('./md/Expanded.md'),
+          content: Expanded,
         },
         {
           title: 'Editable',
-          content: require('./md/EditTable.md'),
+          content: EditTable,
         },
         {
           title: 'Loading',
-          content: require('./md/LoadingTable.md'),
+          content: LoadingTable,
         },
         {
           title: 'Colspan Cell',
-          content: require('./md/ColspanTable.md'),
+          content: ColspanTable,
         },
         {
           title: 'Hidden header',
-          content: require('./md/HideTableHeader.md'),
+          content: HideTableHeader,
         },
         {
           title: 'Empty',
-          content: require('./md/EmptyDataTable.md'),
+          content: EmptyDataTable,
         },
         {
           title: 'Dynamic',
-          content: require('./md/DynamicTable.md'),
+          content: DynamicTable,
         },
       ]}
     />

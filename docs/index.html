@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       .sk-cube-grid {
+        position: absolute;
+        top: 50%;
+        left: 50%;
         width: 40px;
         height: 40px;
-        top: 50%;
-        position: absolute;
-        left: 50%;
         margin-top: -20px;
         margin-left: -20px;
       }
 
       .sk-cube-grid .sk-cube {
+        float: left;
         width: 33%;
         height: 33%;
         background-color: #6292f0;
-        float: left;
         -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
         animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
       }
@@ -102,7 +102,7 @@
     />
     <script
       type="text/javascript"
-      src="//cdn.staticfile.org/babel-standalone/6.24.0/babel.min.js"
+      src="//cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
     ></script>
   </head>
 
@@ -120,16 +120,5 @@
         <div class="sk-cube sk-cube9"></div>
       </div>
     </div>
-    <!--
-  <script>
-    (function (i, d, t, o, u, h, s, f) {
-      i[t] = i[t] || [], i[t].push(h); i[h] = i[h] || function () {
-        return (i[h].q = i[h].q || []).push(arguments)
-      }; s = d.createElement(o); s.src = u;
-      s.async = 1; f = d.getElementsByTagName(o)[0]; f.parentNode.insertBefore(s, f);
-    })(window, document, "HyperAnalyticsObject", "script", "//t.hypers.com.cn/hwt.js?v=1.6", "_ha");
-    _ha("create", "1611");
-    _ha("send", "pageview");
-  </script>
-  --></body>
+ </body>
 </html>

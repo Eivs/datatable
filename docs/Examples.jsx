@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Nav } from 'rsuite';
 import CodeView from 'react-code-view';
 
@@ -10,6 +10,11 @@ const CustomCodeView = ({ ...props }) => (
 );
 
 class Examples extends React.Component {
+  static propTypes = {
+    dependencies: PropTypes.object,
+    list: PropTypes.array,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +32,7 @@ class Examples extends React.Component {
             <Nav>
               {list.map((item, i) => (
                 <Nav.Item
-                  key={i}
+                  key={`${item.title}-nav`}
                   onClick={() => {
                     this.setState({ index: i });
                   }}
@@ -37,7 +42,10 @@ class Examples extends React.Component {
               ))}
             </Nav>
           </Col>
-          <CustomCodeView key={index} dependencies={dependencies}>
+          <CustomCodeView
+            key={`${list[index].title}-code`}
+            dependencies={dependencies}
+          >
             {list[index].content}
           </CustomCodeView>
         </Row>
