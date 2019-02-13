@@ -13,7 +13,9 @@ export default (node, className, condition) => {
     return;
   }
 
-  if (Object.getPrototypeOf(node).hasOwnProperty('length')) {
+  const hasLengthProperty = obj => Object.prototype.hasOwnProperty.call(obj, 'length');
+
+  if (hasLengthProperty(Object.getPrototypeOf(node))) {
     Array.from(node).forEach((item) => {
       toggleClass(item, className, condition);
     });

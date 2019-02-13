@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from './component';
+import { Table } from './components/Table';
 
 const columns = [
   {

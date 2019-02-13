@@ -140,7 +140,14 @@ class Cell extends React.PureComponent {
       paddingLeft: firstColumn ? depth * LAYER_WIDTH + 10 : null,
       ...style,
     };
-    let contentChildren = isNullOrUndefined(children) && rowData ? _.get(rowData, dataKey) : children;
+
+    let contentChildren;
+
+    if (isNullOrUndefined(children) && rowData) {
+      contentChildren = _.get(rowData, dataKey);
+    } else {
+      contentChildren = children;
+    }
 
     if (typeof children === 'function') {
       contentChildren = children(rowData);

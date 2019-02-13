@@ -4,8 +4,5 @@ import Cell from './Cell';
 import HeaderCell from './HeaderCell';
 
 export {
-  Table,
-  Column,
-  Cell,
-  HeaderCell
+  Table, Column, Cell, HeaderCell,
 };

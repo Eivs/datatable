@@ -47,16 +47,14 @@ const SCROLLBAR_WIDHT = 10;
 function findRowKeys(rows, rowKey, expanded) {
   let keys = [];
 
-  for (let i = 0; i < rows.length; i += 1) {
-    const item = rows[i];
-
+  rows.forEach((item) => {
     if (item.children) {
       keys.push(item[rowKey]);
       keys = [...keys, ...findRowKeys(item.children, rowKey)];
     } else if (expanded) {
       keys.push(item[rowKey]);
     }
-  }
+  });
 
   return keys;
 }
@@ -72,13 +70,13 @@ function findAllParents(rowData, rowKey) {
     if (data) {
       parents.push(data[rowKey]);
 
-      if (data._parent) {
-        findParent(data._parent);
+      if (data.parent) {
+        findParent(data.parent);
       }
     }
   }
 
-  findParent(rowData._parent);
+  findParent(rowData.parent);
   return parents;
 }
 
@@ -96,14 +94,13 @@ function resetLeftForCells(cells) {
   let left = 0;
   const nextCells = [];
 
-  for (let i = 0; i < cells.length; i += 1) {
-    const cell = cells[i];
+  cells.forEach((cell) => {
     const nextCell = React.cloneElement(cell, {
       left,
     });
     left += cell.props.width;
     nextCells.push(nextCell);
-  }
+  });
 
   return nextCells;
 }
@@ -267,15 +264,13 @@ class Table extends React.Component {
       let open = false;
       const nextExpandedRowKeys = [];
 
-      for (let i = 0; i < expandedRowKeys.length; i += 1) {
-        const key = expandedRowKeys[i];
-
+      expandedRowKeys.forEach((key) => {
         if (key === rowKey) {
           open = true;
         } else {
           nextExpandedRowKeys.push(key);
         }
-      }
+      });
 
       if (!open) {
         nextExpandedRowKeys.push(rowKey);
@@ -786,10 +781,9 @@ class Table extends React.Component {
     translateDOMPositionXY(wheelStyle, 0, this.scrollY);
     const scrollArrayGroups = Array.from(scrollGroups);
 
-    for (let i = 0; i < scrollArrayGroups.length; i += 1) {
-      const group = scrollArrayGroups[i];
+    scrollArrayGroups.forEach((group) => {
       addStyle(group, wheelGroupStyle);
-    }
+    });
 
     if (this.wheelWrapper) {
       addStyle(this.wheelWrapper, wheelStyle);
@@ -829,20 +823,18 @@ class Table extends React.Component {
     if (wordWrap) {
       const tableRowsMaxHeight = [];
 
-      for (let i = 0; i < this.tableRows.length; i += 1) {
-        const row = this.tableRows[i];
+      this.tableRows.forEach((row) => {
         const cells = row.querySelectorAll(`.${this.addPrefix('cell-wrap')}`) || [];
         let maxHeight = 0;
         const cellArray = Array.from(cells);
 
-        for (let j = 0; j < cellArray.length; j += 1) {
-          const cell = cellArray[j];
+        cellArray.forEach((cell) => {
           const h = getHeight(cell);
           maxHeight = Math.max(maxHeight, h);
-        }
+        });
 
         tableRowsMaxHeight.push(maxHeight);
-      }
+      });
 
       this.setState({
         tableRowsMaxHeight,
@@ -864,8 +856,6 @@ class Table extends React.Component {
     /**
      * 1.判断 Table 列数是否发生变化
      * 2.判断 Table 内容区域是否宽度有变化
-     *
-     *
      * 满足 1 和 2 则更新横向滚动条位置
      */
 
@@ -920,8 +910,7 @@ class Table extends React.Component {
     const expanded = expandedRowKeys.some(key => key === rowData[rowKey]);
     const cells = [];
 
-    for (let i = 0; i < bodyCells.length; i += 1) {
-      const cell = bodyCells[i];
+    bodyCells.forEach((cell) => {
       cells.push(
         React.cloneElement(cell, {
           hasChildren,
@@ -938,7 +927,7 @@ class Table extends React.Component {
           }),
         }),
       );
-    }
+    });
 
     return this.renderRow(rowProps, cells, shouldRenderExpandedRow, rowData);
   }
@@ -946,12 +935,11 @@ class Table extends React.Component {
   renderRow(props, cells, shouldRenderExpandedRow, rowData) {
     const { rowClassName } = this.props;
     const { shouldFixedColumn, width, contentWidth } = this.state;
-
+    let className = rowClassName;
     if (typeof rowClassName === 'function') {
-      props.className = rowClassName(rowData);
-    } else {
-      props.className = rowClassName;
-    } // IF there are fixed columns, add a fixed group
+      className = rowClassName(rowData);
+    }
+    // IF there are fixed columns, add a fixed group
 
     if (shouldFixedColumn && contentWidth > width) {
       const fixedLeftCells = [];
@@ -960,23 +948,25 @@ class Table extends React.Component {
       let fixedLeftCellGroupWidth = 0;
       let fixedRightCellGroupWidth = 0;
 
-      for (let i = 0; i < cells.length; i += 1) {
-        const cell = cells[i];
-        const { fixed, width } = cell.props;
+      cells.forEach((cell) => {
+        const { fixed, width: propsWidth } = cell.props;
 
         if (fixed === true || fixed === 'left') {
           fixedLeftCells.push(cell);
-          fixedLeftCellGroupWidth += width;
+          fixedLeftCellGroupWidth += propsWidth;
         } else if (fixed === 'right') {
           fixedRightCells.push(cell);
-          fixedRightCellGroupWidth += width;
+          fixedRightCellGroupWidth += propsWidth;
         } else {
           scrollCells.push(cell);
         }
-      }
+      });
 
       return (
-        <Row {...props}>
+        <Row
+          {...props}
+          className={className}
+        >
           {fixedLeftCellGroupWidth ? (
             <CellGroup
               fixed="left"
@@ -1086,7 +1076,12 @@ class Table extends React.Component {
       virtualized,
     } = this.props;
     const headerHeight = this.getTableHeaderHeight();
-    const { tableRowsMaxHeight, isScrolling, data, scrollY } = this.state;
+    const {
+      tableRowsMaxHeight,
+      isScrolling,
+      data,
+      scrollY,
+    } = this.state;
     const height = this.getTableHeight();
     const bodyStyles = {
       top: headerHeight,
@@ -1104,6 +1099,7 @@ class Table extends React.Component {
       const maxTop = minTop + height + rowExpandedHeight;
 
       for (let index = 0; index < data.length; index += 1) {
+        /* eslint-disable no-continue */
         const rowData = data[index];
         const maxHeight = tableRowsMaxHeight[index];
         let nextRowHeight = maxHeight ? maxHeight + CELL_PADDING_HEIGHT : rowHeight;

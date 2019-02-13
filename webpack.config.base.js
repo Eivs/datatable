@@ -4,6 +4,7 @@ const WebpackBar = require('webpackbar');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const notifier = require('node-notifier');
+const markdownRenderer = require('react-markdown-reader').renderer;
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { NODE_ENV } = process.env;
@@ -14,7 +15,7 @@ const resolve = dir => path.join(__dirname, dir);
 const config = {
   mode: process.env.NODE_ENV,
   target: 'web',
-  entry: './src/index.js',
+  entry: './docs/index.js',
   output: {
     path: resolve('dist'),
     publicPath: '/',
@@ -28,7 +29,7 @@ const config = {
         test: /\.jsx?$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: /src/,
+        include: [/src/, /docs/],
         exclude: /node_modules/,
         options: {
           formatter: eslintFriendlyFormatter,
@@ -37,7 +38,7 @@ const config = {
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        include: /src/,
+        include: [/src/, /docs/],
         exclude: /node_modules/,
       },
       {
@@ -102,15 +103,23 @@ const config = {
             },
           },
           {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              sourceMap: isDev,
-            },
-          },
-          {
             loader: 'less-loader',
             options: { sourceMap: isDev },
+          },
+        ],
+      },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'html-loader',
+          },
+          {
+            loader: 'markdown-loader',
+            options: {
+              pedantic: true,
+              renderer: markdownRenderer(),
+            },
           },
         ],
       },
@@ -155,7 +164,7 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': NODE_ENV,
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
     new WebpackBar({
       name: NODE_ENV,

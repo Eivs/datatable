@@ -6,12 +6,13 @@ const baseWebpackConfig = require('./webpack.config.base');
 const config = {
   // devtool: 'inline-source-map',
   devtool: 'cheap-module-eval-source-map',
-  entry: ['react-hot-loader/patch', './src/index.js'],
+  entry: ['react-hot-loader/patch', './docs/index.js'],
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: 'docs/index.html',
       inject: true,
       chunksSortMode: 'dependency',
     }),

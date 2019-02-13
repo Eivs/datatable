@@ -4,6 +4,7 @@ import classNames from 'classnames';
 export const globalKey = 'rs-';
 export const getClassNamePrefix = () => {
   if (typeof __RSUITE_CLASSNAME_PREFIX__ !== 'undefined') {
+    // eslint-disable-next-line no-undef
     return __RSUITE_CLASSNAME_PREFIX__;
   }
 

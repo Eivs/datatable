@@ -32,6 +32,7 @@ function colSpanCells(cells) {
             || (isHeaderCell && isNullOrUndefined(children))
           ) {
             nextWidth += colSpanWidth;
+            // eslint-disable-next-line no-param-reassign
             cells[i + j] = cloneCell(nextCell, {
               removed: true,
             });
@@ -44,6 +45,7 @@ function colSpanCells(cells) {
           width: nextWidth,
         }),
       );
+      // eslint-disable-next-line no-continue
       continue;
     }
 

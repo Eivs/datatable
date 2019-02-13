@@ -1,16 +1,15 @@
-import _ from 'lodash';
+import { isArray } from 'lodash';
 
 function flattenData(data) {
   const flattenItems = [];
 
-  function loop(data, _parent) {
-    if (!_.isArray(data)) {
+  function loop(items, parent) {
+    if (!isArray(items)) {
       return;
     }
 
-    data.forEach((item) => {
-      item._parent = _parent;
-      flattenItems.push({ ...item });
+    items.forEach((item) => {
+      flattenItems.push({ ...item, parent });
 
       if (item.children) {
         loop(item.children, item);

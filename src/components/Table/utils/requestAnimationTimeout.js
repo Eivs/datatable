@@ -11,7 +11,7 @@ export const cancelAnimationTimeout = frame => cancelAnimationFramePolyfill(fram
 
 export const requestAnimationTimeout = (callback, delay) => {
   let start; // wait for end of processing current event handler, because event handler may be long
-
+  let frame;
   Promise.resolve().then(() => {
     start = Date.now();
   });
@@ -24,8 +24,9 @@ export const requestAnimationTimeout = (callback, delay) => {
     }
   };
 
-  const frame = {
+  frame = {
     id: requestAnimationFramePolyfill(timeout),
   };
+
   return frame;
 };
